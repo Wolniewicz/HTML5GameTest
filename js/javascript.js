@@ -5,6 +5,9 @@ canvas.width = 512;
 canvas.height = 480;
 document.body.appendChild(canvas);
 
+
+
+
 // Background image
 var bgReady = false;
 var bgImage = new Image();
@@ -29,12 +32,22 @@ monsterImage.onload = function () {
 };
 monsterImage.src = "images/monster.png";
 
+
+
+
 // Game objects
 var hero = {
-	speed: 256 // movement in pixels per second
+	speed: 256, // movement in pixels per second
+	x: canvas.width / 2,
+	y: canvas.height / 2
 };
-var monster = {};
+var monster = {
+	x: 0,
+	y: 0
+};
 var monstersCaught = 0;
+
+
 
 // Handle keyboard controls
 var keysDown = {};
@@ -47,15 +60,23 @@ addEventListener("keyup", function (e) {
 	delete keysDown[e.keyCode];
 }, false);
 
+
+
+
 // Reset the game when the player catches a monster
 var reset = function () {
-	hero.x = canvas.width / 2;
-	hero.y = canvas.height / 2;
+	//hero.x = canvas.width / 2;
+	//hero.y = canvas.height / 2;
 
 	// Throw the monster somewhere on the screen randomly
 	monster.x = 32 + (Math.random() * (canvas.width - 64));
 	monster.y = 32 + (Math.random() * (canvas.height - 64));
 };
+
+
+
+
+
 
 // Update game objects
 var update = function (modifier) {
@@ -84,6 +105,10 @@ var update = function (modifier) {
 	}
 };
 
+
+
+
+
 // Draw everything
 var render = function () {
 	if (bgReady) {
@@ -106,6 +131,11 @@ var render = function () {
 	ctx.fillText("Goblins caught: " + monstersCaught, 32, 32);
 };
 
+
+
+
+
+
 // The main game loop
 var main = function () {
 	var now = Date.now();
@@ -120,9 +150,16 @@ var main = function () {
 	requestAnimationFrame(main);
 };
 
+
+
+
+
 // Cross-browser support for requestAnimationFrame
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
+
+
 
 // Let's play this game!
 var then = Date.now();
