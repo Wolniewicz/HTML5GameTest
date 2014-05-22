@@ -71,6 +71,23 @@ var reset = function () {
 	// Throw the monster somewhere on the screen randomly
 	monster.x = 32 + (Math.random() * (canvas.width - 64));
 	monster.y = 32 + (Math.random() * (canvas.height - 64));
+
+	// Make sure monster doesn't spawn outside of main area (ie in trees)
+	if (monster.x >= canvas.width - 60) {
+		monster.x = canvas.width - 60;
+	}
+	if (monster.x <= 30) {
+		monster.x = 30;
+	}
+
+	if (monster.y >= canvas.height - 64) {
+		monster.y = canvas.height - 64;
+	}
+
+	if (monster.y <= 30) {
+		monster.y = 30;
+	}
+
 };
 
 
@@ -93,16 +110,35 @@ var update = function (modifier) {
 		hero.x += hero.speed * modifier;
 	}
 
+
+	// Stop movement if dwarf hits trees:
+
+	if (hero.x >= canvas.width - 60) {
+		hero.x = canvas.width - 60;
+	}
+	if (hero.x <= 30) {
+		hero.x = 30;
+	}
+
+	if (hero.y >= canvas.height - 64) {
+		hero.y = canvas.height - 64;
+	}
+
+	if (hero.y <= 30) {
+		hero.y = 30;
+	}
+
+
 	// Are they touching?
 	if (
 		hero.x <= (monster.x + 32)
 		&& monster.x <= (hero.x + 32)
 		&& hero.y <= (monster.y + 32)
 		&& monster.y <= (hero.y + 32)
-	) {
+		) {
 		++monstersCaught;
-		reset();
-	}
+	reset();
+}
 };
 
 
